@@ -1,4 +1,7 @@
 import { useMetrics } from './hooks'
+import MetricLineChart from '../../components/charts/MetricLineChart'
+import KpiCard from '../../components/charts/KpiCard'
+import { getLatestValue } from './utils'
 
 export default function Dashboard() {
   const { data, isLoading, error } = useMetrics()
@@ -13,20 +16,34 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h2 className="mb-4 text-2xl font-semibold">Dashboard</h2>
+      <h2 className="mb-6 text-2xl font-semibold">Dashboard</h2>
 
-      <div className="grid grid-cols-3 gap-4">
+      {/* KPI ROW */}
+      <div className="mb-8 grid grid-cols-3 gap-4">
+        {data!.map((metric) => (
+          <KpiCard
+            key={metric.id}
+            label={metric.label}
+            value={getLatestValue(metric)}
+            unit={metric.unit}
+          />
+        ))}
+      </div>
+
+      {/* CHARTS */}
+      <div className="space-y-8">
         {data!.map((metric) => (
           <div
             key={metric.id}
             className="rounded bg-slate-900 p-4"
           >
-            <p className="text-sm text-slate-400">
+            <h3 className="mb-4 text-lg font-medium">
               {metric.label}
-            </p>
-            <p className="mt-2 text-2xl font-bold">
-              {metric.data.at(-1)?.value} {metric.unit}
-            </p>
+            </h3>
+            <MetricLineChart
+              data={metric.data}
+              unit={metric.unit}
+            />
           </div>
         ))}
       </div>
