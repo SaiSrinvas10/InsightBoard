@@ -3,20 +3,20 @@ import MetricLineChart from '../../components/charts/MetricLineChart'
 import KpiCard from '../../components/charts/KpiCard'
 import { getLatestValue } from './utils'
 
+import TimeRangeSelector from './TimeRangeSelector'
+
 export default function Dashboard() {
   const { data, isLoading, error } = useMetrics()
 
-  if (isLoading) {
-    return <div className="text-slate-400">Loading metrics...</div>
-  }
-
-  if (error) {
-    return <div className="text-red-500">Failed to load metrics</div>
-  }
-
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error loading metrics</div>
+  
   return (
     <div>
-      <h2 className="mb-6 text-2xl font-semibold">Dashboard</h2>
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-2xl font-semibold">Dashboard</h2>
+        <TimeRangeSelector />
+      </div>
 
       {/* KPI ROW */}
       <div className="mb-8 grid grid-cols-3 gap-4">

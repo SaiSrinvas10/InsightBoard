@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { useUIStore } from '../../app/store'
 
 const navItems = [
   { to: '/dashboard', label: 'Dashboard' },
@@ -7,6 +8,10 @@ const navItems = [
 ]
 
 export default function Sidebar() {
+  const isOpen = useUIStore((s) => s.isSidebarOpen)
+
+  if (!isOpen) return null
+
   return (
     <aside className="w-60 border-r border-slate-800 p-4">
       <h1 className="mb-8 text-xl font-semibold">InsightBoard</h1>
