@@ -17,7 +17,8 @@ export function useMetrics() {
 
   const query = useQuery({
     queryKey: ['metrics'],
-    queryFn: fetchMetrics
+    queryFn: fetchMetrics,
+    retry: 2
   })
 
   useEffect(() => {
@@ -58,7 +59,7 @@ export function useMetrics() {
       unsubscribe()
       disconnectWebSocket()
     }
-    
+
   }, [queryClient])
 
   return query

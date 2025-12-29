@@ -18,7 +18,7 @@ export default function Dashboard() {
   const metricFilter = useUIStore((s) => s.metricFilter)
   const search = useUIStore((s) => s.search)
 
-  const { data, isLoading, error } = useMetrics()
+  const { data, isLoading, error, isFetching } = useMetrics()
 
   const visibleMetrics = useMemo(() => {
     if (!data) return []
@@ -29,8 +29,28 @@ export default function Dashboard() {
     return <div className="text-slate-400">Loading...</div>
   }
 
+  if (error && isFetching) {
+    return (
+      <div className="text-slate-400">
+        Retrying to load data…
+      </div>
+    )
+  }
+
   if (error) {
-    return <div className="text-red-500">Error loading metrics</div>
+    return (
+      <div className="rounded bg-red-900/30 p-6 text-red-200">
+        <h3 className="mb-2 font-semibold">
+          Failed to load dashboard data
+        </h3>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-3 rounded bg-red-700 px-3 py-1 text-sm"
+        >
+          Retry
+        </button>
+      </div>
+    )
   }
 
   return (
@@ -61,18 +81,21 @@ export default function Dashboard() {
       {/* CHARTS */}
       <div className="space-y-8">
         {visibleMetrics.map((metric) => (
-          <div
-            key={metric.id}
-            className="rounded bg-slate-900 p-4"
-          >
+          <div key={metric.id} className="rounded bg-slate-900 p-4">
             <h3 className="mb-4 text-lg font-medium">
               {metric.label}
             </h3>
 
-            <MetricLineChart
-              data={metric.data}
-              unit={metric.unit}
-            />
+            {metric.data.length === 0 ? (
+              <div className="text-slate-400">
+                No data available
+              </div>
+            ) : (
+              <MetricLineChart
+                data={metric.data}
+                unit={metric.unit}
+              />
+            )}
           </div>
         ))}
       </div>
