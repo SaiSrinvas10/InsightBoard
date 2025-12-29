@@ -13,6 +13,8 @@ export default function SearchInput() {
 
   return (
     <input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
         aria-label="Search metrics"
         placeholder="Search metrics…"
         className="rounded bg-slate-800 px-3 py-1 text-sm text-white focus:outline-none focus:ring-2 focus:ring-sky-500"

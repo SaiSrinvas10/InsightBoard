@@ -27,7 +27,7 @@ export default function Alerts() {
       <div className="h-[500px]">
         <Virtuoso
           data={alerts}
-          itemContent={(index, alert) => (
+          itemContent={(_, alert) => (
             <div className="p-2">
               <div
                 role="alert"
