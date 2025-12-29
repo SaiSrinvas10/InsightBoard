@@ -1,73 +1,59 @@
-# React + TypeScript + Vite
+# InsightBoard – Real-Time Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A production-grade real-time analytics dashboard built with React 18+, TypeScript, and modern frontend architecture, featuring live data streaming, alerting rules, performance optimization, and accessibility-first design.
 
-Currently, two official plugins are available:
+## Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Real-time metric streaming with WebSocket simulation
+- KPI dashboards with live-updating charts
+- Rule-based alert engine with lifecycle management
+- Advanced filtering with URL-synced state
+- Performance optimization using memoization and virtualization
+- Fully accessible UI (keyboard navigation, ARIA, focus management)
+- Robust error handling with retry and graceful degradation
 
-## React Compiler
+## Architecture Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Server State: React Query (metrics, retries, caching)
+- Client/UI State: Zustand (filters, theme, layout state)
+- Real-time Updates: Event-driven WebSocket simulation
+- Derived State: Pure selectors and rule engines
+- Rendering: Memoized components + virtualized lists
+ 
+ ## Performance Optimizations
 
-## Expanding the ESLint configuration
+- Memoized expensive components (charts, KPIs)
+- Throttled real-time updates to prevent render storms
+- Virtualized alert lists using react-virtuoso
+- Derived data memoization using useMemo
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Resilience & Error Handling
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Global error boundary for runtime failures
+- Retry handling for transient API errors
+- Partial UI rendering when data is missing
+- User-friendly recovery actions
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Accessibility & UX
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Keyboard-navigable UI with visible focus states
+- ARIA labels and live regions for alerts
+- Screen-reader-friendly alert announcements
+- Global dark/light theme toggle
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Testing Strategy
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Unit tests for business logic (selectors, alert rules)
+- Store tests for UI state (Zustand)
+- Integration tests for core pages
+- Avoided brittle snapshot/UI tests
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Tech Stack
+
+- React 18+ / 19
+- TypeScript
+- Vite
+- React Query
+- Zustand
+- Tailwind CSS
+- Vitest + Testing Library
