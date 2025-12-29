@@ -2,14 +2,6 @@ import { create } from 'zustand'
 
 export type TimeRange = '1h' | '24h' | '7d'
 
-interface UIState {
-  timeRange: TimeRange
-  setTimeRange: (range: TimeRange) => void
-
-  isSidebarOpen: boolean
-  toggleSidebar: () => void
-}
-
 export type MetricFilter = 'all' | 'active_users' | 'error_rate' | 'revenue'
 
 interface UIState {
@@ -23,6 +15,9 @@ interface UIState {
 
   isSidebarOpen: boolean
   toggleSidebar: () => void
+
+  theme: 'light' | 'dark'
+  toggleTheme: () => void
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -36,7 +31,13 @@ export const useUIStore = create<UIState>((set) => ({
 
   isSidebarOpen: true,
   toggleSidebar: () =>
-    set((state) => ({ isSidebarOpen: !state.isSidebarOpen }))
+    set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
+
+  theme: 'dark',
+  toggleTheme: () =>
+    set((state) => ({
+      theme: state.theme === 'dark' ? 'light' : 'dark'
+    }))
 }))
 
 

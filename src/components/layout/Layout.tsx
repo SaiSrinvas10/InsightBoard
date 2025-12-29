@@ -1,8 +1,10 @@
 import { Outlet } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import Navbar from './Navbar'
+import { useTheme } from '../../hooks/useTheme'
 
 export default function Layout() {
+  useTheme()
   return (
     <div className="flex h-screen bg-slate-950 text-slate-100">
       <Sidebar />

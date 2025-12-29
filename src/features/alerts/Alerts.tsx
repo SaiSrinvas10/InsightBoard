@@ -1,16 +1,28 @@
 import { Virtuoso } from 'react-virtuoso'
 import { useAlertStore } from './alertStore'
+import { useEffect, useRef } from 'react'
 
 export default function Alerts() {
   const alerts = useAlertStore((s) => s.alerts)
+  const headingRef = useRef<HTMLHeadingElement>(null)
+
+  useEffect(() => {
+    headingRef.current?.focus()
+  }, [])
 
   if (alerts.length === 0) {
-    return <div className="text-slate-400">No alerts 🎉</div>
+    return <div className="text-slate-300">No alerts 🎉</div>
   }
 
   return (
     <div>
-      <h2 className="mb-6 text-2xl font-semibold">Alerts</h2>
+      <h2
+        ref={headingRef}
+        tabIndex={-1}
+        className="mb-6 text-2xl font-semibold"
+      >
+        Alerts
+      </h2>
 
       <div className="h-[500px]">
         <Virtuoso
@@ -18,6 +30,8 @@ export default function Alerts() {
           itemContent={(index, alert) => (
             <div className="p-2">
               <div
+                role="alert"
+                aria-live="assertive"
                 className={`rounded p-4 ${
                   alert.status === 'open'
                     ? 'bg-red-900/40'

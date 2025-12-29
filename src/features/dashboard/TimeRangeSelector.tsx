@@ -11,13 +11,9 @@ export default function TimeRangeSelector() {
     <div className="flex gap-2">
       {ranges.map((range) => (
         <button
-          key={range}
-          onClick={() => setTimeRange(range)}
-          className={`rounded px-3 py-1 text-sm ${
-            timeRange === range
-              ? 'bg-sky-600 text-white'
-              : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-          }`}
+            onClick={() => setTimeRange(range)}
+            aria-pressed={timeRange === range}
+            className="rounded px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
         >
           {range}
         </button>
