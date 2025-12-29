@@ -6,7 +6,7 @@ import { useTheme } from '../../hooks/useTheme'
 export default function Layout() {
   useTheme()
   return (
-    <div className="flex h-screen bg-slate-950 text-slate-100">
+    <div className="flex h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Navbar />

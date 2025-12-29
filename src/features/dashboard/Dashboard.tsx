@@ -81,7 +81,7 @@ export default function Dashboard() {
       {/* CHARTS */}
       <div className="space-y-8">
         {visibleMetrics.map((metric) => (
-          <div key={metric.id} className="rounded bg-slate-900 p-4">
+          <div key={metric.id} className="rounded bg-slate-100 dark:bg-slate-900 p-4">
             <h3 className="mb-4 text-lg font-medium">
               {metric.label}
             </h3>

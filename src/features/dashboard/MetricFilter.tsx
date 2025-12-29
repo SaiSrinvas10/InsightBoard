@@ -16,7 +16,9 @@ export default function MetricFilter() {
     <select
       value={metricFilter}
       onChange={(e) => setMetricFilter(e.target.value as MetricFilter)}
-      className="rounded bg-slate-800 px-3 py-1 text-sm text-white"
+      className="rounded bg-slate-100 text-slate-900
+           dark:bg-slate-800 dark:text-white
+           border border-slate-300 dark:border-slate-700"
     >
       {options.map((opt) => (
         <option key={opt} value={opt}>

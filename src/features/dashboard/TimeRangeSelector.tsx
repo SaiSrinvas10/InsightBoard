@@ -13,7 +13,13 @@ export default function TimeRangeSelector() {
         <button
             onClick={() => setTimeRange(range)}
             aria-pressed={timeRange === range}
-            className="rounded px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
+            className="rounded px-3 py-1 text-sm 
+              ${timeRange === range
+                ? 'bg-sky-600 text-white'
+                : 'bg-slate-200 text-slate-900
+                  dark:bg-slate-800 dark:text-slate-300
+                  hover:bg-slate-300 dark:hover:bg-slate-700'
+              }"
         >
           {range}
         </button>
