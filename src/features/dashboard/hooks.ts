@@ -8,6 +8,10 @@ import {
 } from '../../services/websocket'
 import type { MetricSeries } from '../../types/metrics'
 
+import { useAlertStore } from '../../features/alerts/alertStore'
+import { evaluateRules } from '../../features/alerts/rules'
+
+
 export function useMetrics() {
   const queryClient = useQueryClient()
 
@@ -40,10 +44,21 @@ export function useMetrics() {
       )
     })
 
+    const alerts = useAlertStore.getState().alerts
+    const updates = evaluateRules(
+        queryClient.getQueryData(['metrics']) ?? [],
+        alerts
+    )
+
+    if (updates.length) {
+        useAlertStore.getState().upsertAlerts(updates)
+    }
+
     return () => {
       unsubscribe()
       disconnectWebSocket()
     }
+    
   }, [queryClient])
 
   return query

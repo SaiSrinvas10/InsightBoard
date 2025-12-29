@@ -10,11 +10,33 @@ interface UIState {
   toggleSidebar: () => void
 }
 
+export type MetricFilter = 'all' | 'active_users' | 'error_rate' | 'revenue'
+
+interface UIState {
+  timeRange: TimeRange
+  metricFilter: MetricFilter
+  search: string
+
+  setTimeRange: (range: TimeRange) => void
+  setMetricFilter: (filter: MetricFilter) => void
+  setSearch: (value: string) => void
+
+  isSidebarOpen: boolean
+  toggleSidebar: () => void
+}
+
 export const useUIStore = create<UIState>((set) => ({
   timeRange: '1h',
+  metricFilter: 'all',
+  search: '',
+
   setTimeRange: (range) => set({ timeRange: range }),
+  setMetricFilter: (filter) => set({ metricFilter: filter }),
+  setSearch: (value) => set({ search: value }),
 
   isSidebarOpen: true,
   toggleSidebar: () =>
     set((state) => ({ isSidebarOpen: !state.isSidebarOpen }))
 }))
+
+
