@@ -26,7 +26,14 @@ export function subscribe(listener: Listener) {
   return () => listeners.delete(listener)
 }
 
+let lastEmit = 0
+
 function generateMetricUpdate(): Partial<MetricSeries> {
+  const now = Date.now()
+  if (now - lastEmit < 3000) return {}
+
+  lastEmit = now
+
   const types: MetricSeries['type'][] = [
     'active_users',
     'error_rate',

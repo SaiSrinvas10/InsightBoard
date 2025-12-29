@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useMetrics } from './hooks'
 import MetricLineChart from '../../components/charts/MetricLineChart'
 import KpiCard from '../../components/charts/KpiCard'
@@ -19,12 +20,18 @@ export default function Dashboard() {
 
   const { data, isLoading, error } = useMetrics()
 
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error loading metrics</div>
+  const visibleMetrics = useMemo(() => {
+    if (!data) return []
+    return filterMetrics(data, metricFilter, search)
+  }, [data, metricFilter, search])
 
-  const visibleMetrics = data
-    ? filterMetrics(data, metricFilter, search)
-    : []
+  if (isLoading) {
+    return <div className="text-slate-400">Loading...</div>
+  }
+
+  if (error) {
+    return <div className="text-red-500">Error loading metrics</div>
+  }
 
   return (
     <div>

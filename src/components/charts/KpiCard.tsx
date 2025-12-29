@@ -4,7 +4,9 @@ interface Props {
   unit?: string
 }
 
-export default function KpiCard({ label, value, unit }: Props) {
+import { memo } from 'react'
+
+function KpiCard({ label, value, unit }: Props) {
   return (
     <div className="rounded bg-slate-900 p-4">
       <p className="text-sm text-slate-400">{label}</p>
@@ -14,3 +16,5 @@ export default function KpiCard({ label, value, unit }: Props) {
     </div>
   )
 }
+
+export default memo(KpiCard)

@@ -8,13 +8,15 @@ import {
 } from 'recharts'
 import type { MetricPoint } from '../../types/metrics'
 
+import { memo } from 'react'
+
 interface Props {
   data: MetricPoint[]
   color?: string
   unit?: string
 }
 
-export default function MetricLineChart({
+function MetricLineChart({
   data,
   color = '#38bdf8',
   unit
@@ -53,3 +55,5 @@ export default function MetricLineChart({
     </div>
   )
 }
+
+export default memo(MetricLineChart)
