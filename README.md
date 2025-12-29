@@ -2,6 +2,9 @@
 
 A production-grade real-time analytics dashboard built with React 18+, TypeScript, and modern frontend architecture, featuring live data streaming, alerting rules, performance optimization, and accessibility-first design.
 
+## Live Demo
+👉 https://insight-board-black.vercel.app/
+
 ## Key Features
 
 - Real-time metric streaming with WebSocket simulation
